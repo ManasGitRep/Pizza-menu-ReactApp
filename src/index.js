@@ -64,15 +64,29 @@ function Header() {
 }
 
 function Menu() {
+  const pizzas = pizzaData;
+  // const pizzas = [];
+  const numPizzas = pizzas.length;
   return (
     <main className="menu">
       <h2>Our Menu</h2>
-
-      <ul className="pizzas">
-        {pizzaData.map((pizza) => (
-          <Pizza pizzaObj={pizza} key={pizza.name} />
-        ))}
-      </ul>
+      {/* {numPizzas > 0 && (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      )} */}
+      {/* conditional rendering using ternary operator */}
+      {numPizzas > 0 ? (
+        <ul className="pizzas">
+          {pizzas.map((pizza) => (
+            <Pizza pizzaObj={pizza} key={pizza.name} />
+          ))}
+        </ul>
+      ) : (
+        <p>We're still working on our menu please come back later :3</p>
+      )}
 
       {/* <Pizza
         name="Pizza Spinaci"
@@ -102,7 +116,7 @@ function Pizza(props) {
 function Footer() {
   const hour = new Date().getHours();
   const openHour = 12;
-  const closeHour = 22;
+  const closeHour = 23;
   const isOpen = hour >= openHour && hour <= closeHour;
   console.log(isOpen);
   // if (hour >= openHour && hour <= closeHour) {
@@ -112,7 +126,24 @@ function Footer() {
   // }
   return (
     <footer className="footer">
-      {new Date().toLocaleTimeString()}. We're currently open!
+      {/* {isOpen && (
+        <div className="order">
+          <p>We're open till {closeHour}:00. Come visit us or order online.</p>
+          <button className="btn">Order now</button>
+        </div>
+      )} */}
+      {/* conditional rendering using ternary operator */}
+      {isOpen ? (
+        <div className="order">
+          <p>We're open till {closeHour}:00. Come visit us or order online.</p>
+          <button className="btn">Order now</button>
+        </div>
+      ) : (
+        <p>
+          We're happy to welcome you between {openHour}:00 and {closeHour}:00
+        </p>
+      )}
+      {/* {new Date().toLocaleTimeString()}. We're currently open! */}
     </footer>
   );
 }
