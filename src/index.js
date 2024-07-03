@@ -35,7 +35,7 @@ const pizzaData = [
     ingredients: "Tomato, mozarella, and pepperoni",
     price: 15,
     photoName: "pizzas/salamino.jpg",
-    soldOut: true,
+    soldOut: false,
   },
   {
     name: "Pizza Prosciutto",
@@ -103,13 +103,15 @@ function Menu() {
     </main>
   );
 }
-function Pizza(props) {
+function Pizza({ pizzaObj }) {
+  console.log(pizzaObj);
+  if (pizzaObj.soldOut) return null;
   return (
     <li className="pizza">
-      <img src={props.pizzaObj.photoName} alt="spinach pizza" />
-      <h3>{props.pizzaObj.name}</h3>
-      <p>{props.pizzaObj.ingredients}</p>
-      <span>{props.pizzaObj.price + 3}</span>
+      <img src={pizzaObj.photoName} alt={pizzaObj.name} />
+      <h3>{pizzaObj.name}</h3>
+      <p>{pizzaObj.ingredients}</p>
+      <span>{pizzaObj.price + 3}</span>
     </li>
   );
 }
@@ -124,6 +126,12 @@ function Footer() {
   // } else {
   //   alert("Sorry we're closed");
   // }
+  // if (!openHour)
+  //   return (
+  //     <p>
+  //       We're happy to welcome you between {openHour}:00 and {closeHour}:00
+  //     </p>
+  //   );
   return (
     <footer className="footer">
       {/* {isOpen && (
@@ -134,10 +142,7 @@ function Footer() {
       )} */}
       {/* conditional rendering using ternary operator */}
       {isOpen ? (
-        <div className="order">
-          <p>We're open till {closeHour}:00. Come visit us or order online.</p>
-          <button className="btn">Order now</button>
-        </div>
+        <Order closeHour={closeHour} openHour={openHour} />
       ) : (
         <p>
           We're happy to welcome you between {openHour}:00 and {closeHour}:00
@@ -145,6 +150,18 @@ function Footer() {
       )}
       {/* {new Date().toLocaleTimeString()}. We're currently open! */}
     </footer>
+  );
+}
+
+function Order({ closeHour, openHour }) {
+  return (
+    <div className="order">
+      <p>
+        We're open from {openHour}:00 to {closeHour}:00. Come visit us or order
+        online.
+      </p>
+      <button className="btn">Order now</button>
+    </div>
   );
 }
 
